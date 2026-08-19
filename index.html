@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grand Lux Hotel - Experience Unforgettable Stays</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="chatbot.css">
+<link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" rel="stylesheet" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="/>
+<style>
+        /* CSS Variables for Colors */
+        :root {
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-red-400: #f87171;
+            --color-red-500: #ef4444;
+            --color-red-600: #dc2626;
+            --color-red-700: #b91c1c;
+            --color-yellow-400: #facc15;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            background-color: var(--color-gray-50);
+            color: var(--color-gray-800);
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Section Heading Underline */
+        .section-heading {
+            position: relative;
+            display: inline-block;
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            text-align: center;
+            margin-bottom: 3rem; /* mb-12 */
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--color-red-500);
+            border-radius: 9999px;
+        }
+
+        /* Fade-in-Up Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header & Hero Section */
+        .hero-background {
+            /* background-image is now handled by an <img> tag in HTML */
+            /* Removed: background-image: url('http://googleusercontent.com/file_content/1'); */
+            background-size: cover; /* Still useful if you add a fallback or for overlay sizing */
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            overflow: hidden; /* Ensure image doesn't overflow */
+        }
+
+        /* New CSS for the HTML background image */
+        .hero-background .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire area */
+            z-index: 0; /* Place it behind the overlay and content */
+        }
+
+        .hero-background .overlay {
+            position: absolute;
+            inset: 0; /* top: 0; right: 0; bottom: 0; left: 0; */
+            background-color: var(--color-black);
+            opacity: 0.6;
+            z-index: 1; /* Place it above the image but below content */
+        }
+
+        /* Navigation Bar (Fixed and Dynamic) */
+        .main-nav {
+            position: fixed; /* Changed to fixed */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            padding: 1rem; /* p-4 */
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background for visibility */
+            transition: transform 0.3s ease-out, background-color 0.3s ease-out; /* Smooth transition for hiding/showing */
+            transform: translateY(0); /* Default visible state */
+        }
+        .main-nav.header-hidden {
+            transform: translateY(-100%); /* Move header fully up to hide */
+        }
+        @media (min-width: 768px) { /* md */
+            .main-nav {
+                padding: 1.5rem; /* md:p-6 */
+            }
+        }
+
+        .nav-container {
+            max-width: 1280px; /* container (approx) */
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: center; /* Centered logo */
+            align-items: center;
+            position: relative; /* For absolute positioning of button */
+        }
+
+        .logo {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: var(--color-white);
+            letter-spacing: 0.05em; /* tracking-wider */
+            text-align: center; /* Ensure text is centered within its own space */
+            flex-grow: 1; /* Allows logo to take available space and center */
+        }
+
+        .mobile-menu-button {
+            display: block; /* Always visible now */
+            color: var(--color-white);
+            border: none;
+            background: none;
+            cursor: pointer;
+            position: absolute; /* Positioned relative to nav-container */
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.875rem; /* text-3xl for Font Awesome icon */
+        }
+        .mobile-menu-button svg {
+            width: 2rem; /* w-8 */
+            height: 2rem; /* h-8 */
+        }
+
+        /* Desktop Sliding Menu (Slides from right, now universal) */
+        .desktop-sliding-menu {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Hidden by default */
+            width: 300px; /* Width of the sliding menu */
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95); /* Darker background for the menu itself */
+            z-index: 30; /* Higher than main-nav */
+            transition: right 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            padding-top: 5rem; /* Space from top for header */
+        }
+        .desktop-sliding-menu.is-open {
+            right: 0; /* Slide in */
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            flex-direction: column; /* Vertical links */
+            gap: 1.5rem; /* space-y-6 */
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 500; /* font-medium */
+            padding: 2rem; /* Padding inside the sliding menu */
+        }
+        .desktop-nav-links li a {
+            color: var(--color-white);
+            transition-property: color;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            display: block; /* Make links block-level for full click area */
+            padding: 0.5rem 0; /* Add some padding */
+        }
+        .desktop-nav-links li a:hover {
+            color: var(--color-red-400);
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10; /* Place content above overlay */
+            text-align: center;
+            padding: 1rem; /* p-4 */
+        }
+
+        .hero-content h1 {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            line-height: 1.25; /* leading-tight */
+            margin-bottom: 1.5rem; /* mb-6 */
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        @media (min-width: 768px) { /* md */
+            .hero-content h1 {
+                font-size: 4.5rem; /* md:text-7xl */
+            }
+        }
+
+        .hero-content p {
+            font-size: 1.125rem; /* text-lg */
+            max-width: 48rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2.5rem; /* mb-10 */
+            animation: fadeInUp 0.6s ease-out 0.2s forwards;
+        }
+        @media (min-width: 768px) { /* md */
+            .hero-content p {
+                font-size: 1.25rem; /* md:text-xl */
+            }
+        }
+
+        .hero-content .explore-button {
+            background-color: var(--color-red-600);
+            color: var(--color-white);
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition-property: background-color, transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            display: inline-block;
+            animation: fadeInUp 0.6s ease-out 0.4s forwards;
+            border: none;
+            cursor: pointer;
+        }
+        .hero-content .explore-button:hover {
+            background-color: var(--color-red-700);
+            transform: scale(1.05);
+        }
+
+        /* Main Content Sections */
+        main section {
+            padding-top: 4rem; /* py-16 */
+            padding-bottom: 4rem; /* py-16 */
+        }
+        @media (min-width: 768px) { /* md */
+            main section {
+                padding-top: 6rem; /* md:py-24 */
+                padding-bottom: 6rem; /* md:py-24 */
+            }
+        }
+
+        .container {
+            max-width: 1280px; /* container (approx) */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+        }
+        @media (min-width: 768px) { /* md */
+            .container {
+                padding-left: 2rem; /* md:px-8 */
+                padding-right: 2rem; /* md:px-8 */
+            }
+        }
+
+        /* About Us Section */
+        #about {
+            background-color: var(--color-white);
+        }
+        #about .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem; /* gap-12 */
+        }
+        @media (min-width: 768px) { /* md */
+            #about .content-wrapper {
+                flex-direction: row; /* md:flex-row */
+            }
+        }
+
+        #about .image-container {
+            width: 100%;
+        }
+        @media (min-width: 768px) { /* md */
+            #about .image-container {
+                width: 50%; /* md:w-1/2 */
+            }
+        }
+        #about .image-container img {
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        #about .text-content {
+            width: 100%;
+            font-size: 1.125rem; /* text-lg */
+            line-height: 1.625; /* leading-relaxed */
+        }
+        @media (min-width: 768px) { /* md */
+            #about .text-content {
+                width: 50%; /* md:w-1/2 */
+            }
+        }
+        #about .text-content p {
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+
+        /* Rooms Section */
+        #rooms {
+            background-color: var(--color-gray-100);
+        }
+        #rooms .room-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+        }
+        @media (min-width: 768px) { /* md */
+            #rooms .room-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            #rooms .room-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+            }
+        }
+
+        .room-card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            overflow: hidden;
+            transform: scale(1);
+            transition-property: transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; /* Crucial for positioning the pop-up */
+        }
+        .room-card:hover {
+            transform: scale(1.05);
+        }
+        .room-card img {
+            width: 100%;
+            height: 14rem; /* h-56 */
+            object-fit: cover;
+        }
+        .room-card .card-content {
+            padding: 1.5rem; /* p-6 */
+        }
+        .room-card h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .room-card p {
+            color: var(--color-gray-600);
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .room-card .amenity-item {
+            display: flex;
+            align-items: center;
+            color: var(--color-gray-700);
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .room-card .amenity-item .fa-solid {
+            margin-right: 0.5rem; /* mr-2 */
+        }
+        .room-card .button-group {
+            display: flex;
+            gap: 0.75rem; /* space-x-3 */
+            margin-top: 1rem; /* mt-4 */
+        }
+        .room-card .details-button,
+        .room-card .book-now-card-button {
+            flex: 1; /* Make buttons take equal width */
+            background-color: var(--color-red-500);
+            color: var(--color-white);
+            font-weight: 700; /* font-bold */
+            padding: 0.5rem 1.5rem; /* py-2 px-6 */
+            border-radius: 9999px; /* rounded-full */
+            transition-property: background-color;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none; /* For anchor tags if used */
+            display: inline-flex; /* Use flex for centering content if needed */
+            justify-content: center;
+            align-items: center;
+        }
+        .room-card .details-button:hover,
+        .room-card .book-now-card-button:hover {
+            background-color: var(--color-red-600);
+        }
+        /* Style for the "Book Now" button on the card, if different */
+        .room-card .book-now-card-button {
+            background-color: var(--color-gray-800); /* Darker color for distinction */
+        }
+        .room-card .book-now-card-button:hover {
+            background-color: var(--color-black);
+        }
+
+
+        /* Room Details Modal Styling (now an in-card pop-up) */
+        .room-details-modal {
+            position: absolute; /* Positioned relative to the room-card */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95); /* Darker overlay for in-card */
+            display: flex;
+            flex-direction: column; /* Allow content to stack */
+            align-items: center;
+            justify-content: center;
+            z-index: 10; /* Above card content */
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8); /* Start smaller for zoom effect */
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            padding: 1rem; /* Padding inside the pop-up */
+            box-sizing: border-box;
+            border-radius: 0.75rem; /* Match card border-radius */
+        }
+
+        .room-details-modal.is-open {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1); /* Zoom to full size */
+        }
+
+        .room-detail-content {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px -3px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* Lighter shadow for in-card */
+            width: 100%; /* Take full width of the pop-up container */
+            height: 100%; /* Take full height of the pop-up container */
+            padding: 1.5rem; /* Slightly less padding to fit more content */
+            position: relative;
+            overflow-y: auto; /* Enable scrolling for content if it overflows */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+
+        .room-detail-content 
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10001;
+  padding: 0;
+}
+
+        .room-detail-content .close-button:hover {
+            color: var(--color-red-500);
+        }
+
+        .room-detail-media {
+            margin-bottom: 1rem; /* Reduced margin */
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Reduced gap */
+        }
+        .room-detail-media img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+        .room-detail-media .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .room-detail-media .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .room-detail-content h3 {
+            font-size: 1.6rem; /* Slightly smaller heading */
+            font-weight: 700;
+            margin-bottom: 0.8rem; /* Reduced margin */
+            color: var(--color-gray-900);
+        }
+        .room-detail-content p {
+            font-size: 0.95rem; /* Slightly smaller text */
+            color: var(--color-gray-700);
+            line-height: 1.5; /* Adjusted line height */
+            margin-bottom: 1rem; /* Reduced margin */
+        }
+        .room-detail-content .amenities-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem; /* Reduced gap */
+            margin-top: 0.75rem; /* Reduced margin */
+            margin-bottom: 1rem; /* Reduced margin */
+        }
+        .room-detail-content .amenities-list .amenity-item {
+            background-color: var(--color-gray-100);
+            padding: 0.3rem 0.7rem; /* Reduced padding */
+            border-radius: 9999px;
+            font-size: 0.8rem; /* Smaller font size */
+            color: var(--color-gray-700);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .room-detail-content .amenities-list .amenity-item .fa-solid {
+            color: var(--color-red-500);
+            font-size: 0.9rem; /* Smaller icon */
+        }
+
+        .room-detail-content .book-now-modal-button {
+            display: block;
+            width: 100%;
+            background-color: var(--color-red-600);
+            color: var(--color-white);
+            font-weight: 700;
+            padding: 0.6rem 1.5rem; /* Adjusted padding */
+            border-radius: 9999px;
+            box-shadow: 0 5px 10px -3px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition-property: background-color, transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem; /* Adjusted font size */
+        }
+        .room-detail-content .book-now-modal-button:hover {
+            background-color: var(--color-red-700);
+            transform: scale(1.02);
+        }
+
+
+        /* Amenities Section */
+        #amenities {
+            background-color: var(--color-white);
+        }
+        #amenities .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+            text-align: center;
+        }
+        @media (min-width: 640px) { /* sm */
+            #amenities .amenity-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* sm:grid-cols-2 */
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            #amenities .amenity-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr)); /* lg:grid-cols-4 */
+            }
+        }
+
+        .amenity-card {
+            background-color: var(--color-gray-50);
+            padding: 2rem; /* p-8 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: scale(1);
+            transition-property: transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .amenity-card:hover {
+            transform: scale(1.05);
+        }
+        .amenity-card .fa-solid {
+            color: var(--color-red-500);
+            font-size: 3.125rem; /* text-5xl */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .amenity-card h3 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .amenity-card p {
+            color: yellow;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background-color: var(--color-gray-100);
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            max-width: 64rem; /* max-w-4xl */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-images img {
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--color-white);
+            padding: 0.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            z-index: 10;
+            border: none;
+        }
+        .carousel-button.left {
+            left: 1rem;
+        }
+        .carousel-button.right {
+            right: 1rem;
+        }
+        .carousel-button svg {
+            width: 2rem; /* w-8 */
+            height: 2rem; /* h-8 */
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background-color: var(--color-white);
+        }
+        #testimonials .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+        }
+        @media (min-width: 768px) { /* md */
+            #testimonials .testimonial-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            #testimonials .testimonial-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+            }
+        }
+
+        .testimonial-card {
+            background-color: var(--color-gray-50);
+            padding: 2rem; /* p-8 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .testimonial-card img {
+            width: 5rem; /* w-20 */
+            height: 5rem; /* h-20 */
+            border-radius: 9999px; /* rounded-full */
+            object-fit: cover;
+            margin-bottom: 1rem; /* mb-4 */
+            border: 4px solid var(--color-red-500); /* border-4 border-red-500 */
+        }
+        .testimonial-card .quote {
+            color: var(--color-gray-700);
+            font-style: italic;
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .testimonial-card .author {
+            font-weight: 600; /* font-semibold */
+            color: var(--color-gray-800);
+        }
+        .testimonial-card .stars {
+            display: flex;
+            color: var(--color-yellow-400);
+            margin-top: 0.5rem; /* mt-2 */
+        }
+        
+
+        /* Contact Section */
+        #contact {
+            background-color: var(--color-gray-100);
+        }
+        #contact .contact-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem; /* gap-12 */
+        }
+        @media (min-width: 768px) { /* md */
+            #contact .contact-content-wrapper {
+                flex-direction: row; /* md:flex-row */
+            }
+        }
+
+        .contact-form-container {
+            width: 100%;
+            background-color: var(--color-white);
+            padding: 2rem; /* p-8 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        }
+        @media (min-width: 768px) { /* md */
+            .contact-form-container {
+                width: 50%; /* md:w-1/2 */
+            }
+        }
+        .contact-form-container h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* space-y-6 */
+        }
+        .contact-form label {
+            display: block;
+            color: var(--color-gray-700);
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .contact-form input,
+        .contact-form textarea {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow */
+            appearance: none;
+            border: 1px solid var(--color-gray-200); /* border */
+            border-radius: 0.5rem; /* rounded-lg */
+            width: 100%;
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            color: var(--color-gray-700);
+            line-height: 1.5; /* leading-tight */
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5); /* focus:ring-2 focus:ring-red-500 */
+        }
+        .contact-form textarea {
+            min-height: 9rem; /* rows-6 (approx) */
+        }
+        .contact-form button {
+            background-color: var(--color-red-600);
+            color: var(--color-white);
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 2rem; /* py-3 px-8 */
+            border-radius: 9999px; /* rounded-full */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition-property: background-color, transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: var(--color-red-700);
+            transform: scale(1.05);
+        }
+        .form-message {
+            margin-top: 1rem; /* mt-4 */
+            text-align: center;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+        }
+        .contact-info-container {
+            width: 100%;
+            background-color: var(--color-white);
+            padding: 2rem; /* p-8 */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        @media (min-width: 768px) { /* md */
+            .contact-info-container {
+                width: 50%; /* md:w-1/2 */
+            }
+        }
+        .contact-info-container h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* space-y-4 */
+            color: var(--color-gray-700);
+            font-size: 1.125rem; /* text-lg */
+        }
+        .contact-info-list p {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info-list .fa-solid {
+            margin-right: 0.75rem; /* mr-3 */
+            color: var(--color-red-500);
+        }
+        .social-links {
+            margin-top: 2rem; /* mt-8 */
+        }
+        .social-links h3 {
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .social-links .icons {
+            display: flex;
+            gap: 1.5rem; /* space-x-6 */
+            color: var(--color-red-500);
+        }
+        .social-links .icons a {
+            transition-property: color;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .social-links .icons a:hover {
+            color: var(--color-red-700);
+        }
+        .social-links .icons .fa-brands {
+            font-size: 1.875rem; /* text-3xl */
+        }
+        .map-placeholder {
+            margin-top: 2rem; /* mt-8 */
+            width: 100%;
+            height: 16rem; /* h-64 */
+            background-color: var(--color-gray-200);
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-500);
+        }
+        .map-placeholder iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* New Pickup Page Section */
+        #pickup {
+            background-color: var(--color-white);
+        }
+        #pickup .pickup-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            #pickup .pickup-content-wrapper {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+        .pickup-info-container,
+        .pickup-form-container {
+            width: 100%;
+            background-color: var(--color-gray-50);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        @media (min-width: 768px) {
+            .pickup-info-container,
+            .pickup-form-container {
+                width: 50%;
+            }
+        }
+        .pickup-info-container h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--color-gray-900);
+        }
+        .pickup-info-container p {
+            color: var(--color-gray-700);
+            line-height: 1.625;
+            margin-bottom: 1rem;
+        }
+        .pickup-info-container ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        .pickup-info-container ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-gray-700);
+        }
+        .pickup-info-container ul li .fa-solid {
+            color: var(--color-red-500);
+        }
+        .pickup-form h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--color-gray-900);
+        }
+        .pickup-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .pickup-form-group label {
+            display: block;
+            color: var(--color-gray-700);
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .pickup-form-group input,
+        .pickup-form-group select {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            appearance: none;
+            border: 1px solid var(--color-gray-200);
+            border-radius: 0.5rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            color: var(--color-gray-700);
+            line-height: 1.5;
+            outline: none;
+        }
+        .pickup-form-group input:focus,
+        .pickup-form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+        }
+        .pickup-form-group button {
+            background-color: var(--color-red-600);
+            color: var(--color-white);
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition-property: background-color, transform;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+        .pickup-form-group button:hover {
+            background-color: var(--color-red-700);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: var(--color-gray-900);
+            color: var(--color-white);
+            padding-top: 3rem; /* py-12 */
+            padding-bottom: 3rem; /* py-12 */
+        }
+        .footer-container {
+            max-width: 1280px; /* container (approx) */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem; /* px-4 */
+            padding-right: 1rem; /* px-4 */
+            text-align: center; /* Center content horizontally */
+        }
+        @media (min-width: 768px) { /* md */
+            .footer-container {
+                padding-left: 2rem; /* md:px-8 */
+                padding-right: 2rem; /* md:px-8 */
+            }
+        }
+        .footer-logo-info h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .footer-logo-info p {
+            color: var(--color-gray-400);
+        }
+    
+.hero-background {
+    background-image: url('https://images.unsplash.com/photo-1501117716987-c8e1ecb210a0?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-background {
+    background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* === Right-slide sidebar menu === */
+.desktop-sliding-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  transition: right 0.3s ease;
+  z-index: 9999;
+  padding: 20px;
+}
+.desktop-sliding-menu.is-open {
+  right: 0;
+}
+.desktop-sliding-menu .desktop-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 60px;
+}
+
+/* === Premium booking form === */
+.booking-form-container {
+  max-width: 540px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #fffbea, #fdf6e3);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  padding: 24px 28px;
+}
+.booking-form-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #7a5c29;
+}
+.booking-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 12px;
+  display: block;
+  color: #5c4a1d;
+}
+.booking-form input, .booking-form textarea, .booking-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  margin-top: 4px;
+  background: #fff;
+}
+.booking-form textarea { min-height: 90px; resize: vertical; }
+.booking-form button[type="submit"] {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  background: linear-gradient(180deg, #d4af37, #b8860b);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.booking-form .back-to-details {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #6b7280;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* === Ensure full-bleed hero header === */
+body { margin: 0; }
+header.hero-background {
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* === Right-side sidebar (hidden by default) === */
+#desktop-sliding-menu {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background: rgba(0,0,0,0.95);
+  transition: right 0.3s ease;
+  z-index: 9999;
+  padding: 20px;
+}
+#desktop-sliding-menu.is-open { right: 0; }
+#desktop-sliding-menu .desktop-nav-links { display: flex; flex-direction: column; gap: 16px; padding-top: 60px; }
+
+
+/* ---- Sidebar visibility rules (locked) ---- */
+#desktop-sliding-menu { right: -320px !important; position: fixed; top: 0; height: 100vh; }
+#desktop-sliding-menu.is-open { right: 0 !important; }
+
+
+/* === rb-safe sidebar controls (isolated) === */
+#desktop-sliding-menu {
+  position: fixed !important;
+  top: 0 !important;
+  right: -320px !important;
+  width: 320px !important;
+  height: 100vh !important;
+  background: rgba(0,0,0,0.96) !important;
+  transition: right 0.3s ease !important;
+  z-index: 10000 !important;
+  padding: 20px;
+  overflow-y: auto;
+}
+#desktop-sliding-menu.is-open { right: 0 !important; }
+#desktop-sliding-menu .desktop-nav-links { display: flex; flex-direction: column; gap: 16px; padding-top: 40px; }
+#mobile-menu-button { cursor: pointer; background: transparent; border: 0; }
+body.rb-sidebar-open { overflow: hidden; }
+
+
+/* Hide decorative dots unless sidebar is open */
+#desktop-sliding-menu .dots, 
+#desktop-sliding-menu .dot,
+#desktop-sliding-menu .dot-column {
+  display: none;
+}
+#desktop-sliding-menu.is-open .dots,
+#desktop-sliding-menu.is-open .dot,
+#desktop-sliding-menu.is-open .dot-column {
+  display: block;
+}
+
+
+/* Always show the three dots in the header on all screen sizes */
+#mobile-menu-button {
+  position: absolute !important;
+  top: 10px !important;
+  right: 15px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  color: inherit !important;
+  z-index: 9999 !important;
+  cursor: pointer;
+}
+header {
+  position: relative !important;
+}
+
+
+/* Always keep three dots button visible and clickable */
+#mobile-menu-button {
+  z-index: 999999 !important;
+}
+
+/* Hide non-moving dots bar on mobile */
+@media (max-width: 768px) {
+  [class*="dots"],
+  [class*="dot-nav"],
+  [class*="nav-dots"],
+  .non-moving-sidebar,
+  .sidebar-dots {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+
+/* Prevent horizontal scroll on all screens, especially mobile */
+html, body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Ensure all elements fit within the viewport */
+* {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+/* Extra safety for small screens */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
+
+
+/* Make the three vertical dots icon in the header green */
+#mobile-menu-button, 
+#mobile-menu-button i,
+#mobile-menu-button svg {
+  color:rgb(255, 255, 255) !important;
+}
+</style>
+</head>
+<body>
+<header class="hero-background">
+<div class="overlay"></div>
+<nav class="main-nav" id="main-nav">
+<div class="nav-container">
+<a class="logo" style="font-size: 2.5rem; font-weight: 900; color: gold; text-shadow: 2px 2px 6px rgba(0,0,0,0.8); 
+letter-spacing: 0.1em; text-decoration: none;">KISUMA DOUBLE M HOTEL</a>
+<button class="mobile-menu-button" id="mobile-menu-button">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</nav>
+<div class="desktop-sliding-menu" id="desktop-sliding-menu">
+<ul class="desktop-nav-links">
+<li><a href="#home" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Home</a></li>
+<li><a href="#about" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">About Us</a></li>
+<li><a href="#rooms" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Rooms</a></li>
+<li><a href="#amenities" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Amenities</a></li>
+<li><a href="#gallery" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Gallery</a></li>
+<li><a href="#testimonials" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Testimonials</a></li>
+<li><a href="#contact" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Contact</a></li>
+<li><a href="#pickup" onclick="document.getElementById('desktop-sliding-menu').classList.remove('is-open')">Pick Up</a></li>
+</ul>
+</div>
+<div class="hero-content" id="home">
+<h1 style="animation-delay: 0s;"> Experience Unforgettable Stays </h1>
+<p style="animation-delay: 0.2s;"> Discover unparalleled luxury and comfort at Kisuma double M hotel, 
+    where every moment is crafted for your delight. </p>
+<a class="explore-button" href="#rooms" style="animation-delay: 0.4s;"> Explore Rooms </a>
+</div>
+</header>
+<main>
+<section class="fade-in-up" id="about">
+<div class="container">
+<h2 class="section-heading">About Us</h2>
+<div class="content-wrapper">
+<div class="image-container">
+<img alt="Hotel Lobby" src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?auto=format&amp;fit=crop&amp;w=1200&amp;q=60"/>
+</div>
+<div class="text-content">
+<p> Nestled in the heart of the city, Kisuma Double M Hotel offers a sanctuary of sophistication and tranquility. With a legacy of exceptional hospitality, we are dedicated to providing our guests with an experience that transcends expectations. From our elegantly appointed rooms to our world-class dining, every detail is meticulously curated. </p>
+<p> Our commitment to excellence is reflected in our personalized service, state-of-the-art facilities, and a warm, inviting atmosphere. Whether you're traveling for business or leisure, Kisuma Double M Hotel is your perfect retreat. </p>
+</div>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="rooms">
+<div class="container">
+<h2 class="section-heading">Our Rooms &amp; Suites</h2>
+<div class="room-grid">
+<div class="room-card" id="room-card-standard">
+<img alt="Standard Room" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<div class="card-content">
+<h3>Standard Room</h3>
+<p> Comfortable and cozy, perfect for solo travelers or couples. Features a king-sized bed and modern amenities. </p>
+<div class="amenity-item">
+<i class="fa-solid fa-bed"></i> 1 King Bed
+                            </div>
+<div class="button-group">
+<button class="details-button" data-room-type="standard"> View Details </button>
+<button class="book-now-card-button" data-room-type="standard"> Book Now </button>
+</div>
+</div>
+<div class="room-details-modal" id="room-details-modal-standard">
+<div class="room-detail-content">
+<button class="close-button">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="room-detail-media">
+<img alt="Standard Room Interior" class="room-detail-image" src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<div class="video-container">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="room-detail-video" frameborder="0" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=dQw4w9WgXcQ"></iframe>
+</div>
+</div>
+<h3 class="room-detail-name"></h3>
+<p class="room-detail-description"></p>
+<h4>Room Amenities:</h4>
+<div class="room-detail-amenities amenities-list">
+</div>
+<button class="book-now-modal-button"> Book Now </button>
+</div>
+</div>
+</div>
+<div class="room-card" id="room-card-deluxe">
+<img alt="Deluxe Room" src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<div class="card-content">
+<h3>Deluxe Room</h3>
+<p> A spacious and luxurious room with a separate seating area, perfect for a comfortable stay. </p>
+<div class="amenity-item">
+<i class="fa-solid fa-bed"></i> 1 King Bed
+                            </div>
+<div class="button-group">
+<button class="details-button" data-room-type="deluxe"> View Details </button>
+<button class="book-now-card-button" data-room-type="deluxe"> Book Now </button>
+</div>
+</div>
+<div class="room-details-modal" id="room-details-modal-deluxe">
+<div class="room-detail-content">
+<button class="close-button">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="room-detail-media">
+<img alt="Deluxe Room Interior" class="room-detail-image" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<div class="video-container">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="room-detail-video" frameborder="0" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=dQw4w9WgXcQ"></iframe>
+</div>
+</div>
+<h3 class="room-detail-name"></h3>
+<p class="room-detail-description"></p>
+<h4>Room Amenities:</h4>
+<div class="room-detail-amenities amenities-list">
+</div>
+<button class="book-now-modal-button"> Book Now </button>
+</div>
+</div>
+</div>
+<div class="room-card" id="room-card-suite">
+<img alt="Executive Suite" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=800&amp;q=60"/>
+<div class="card-content">
+<h3>Executive Suite</h3>
+<p> Our most opulent suite, offering breathtaking views, a separate living room, and premium amenities. </p>
+<div class="amenity-item">
+<i class="fa-solid fa-bed"></i> 1 King Bed, 1 Sofa Bed
+                            </div>
+<div class="button-group">
+<button class="details-button" data-room-type="suite"> View Details </button>
+<button class="book-now-card-button" data-room-type="suite"> Book Now </button>
+</div>
+</div>
+<div class="room-details-modal" id="room-details-modal-suite">
+<div class="room-detail-content">
+<button class="close-button">
+<i class="fa-solid fa-xmark"></i>
+</button>
+<div class="room-detail-media">
+<img alt="Executive Suite Interior" class="room-detail-image" src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<div class="video-container">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="room-detail-video" frameborder="0" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=dQw4w9WgXcQ"></iframe>
+</div>
+</div>
+<h3 class="room-detail-name"></h3>
+<p class="room-detail-description"></p>
+<h4>Room Amenities:</h4>
+<div class="room-detail-amenities amenities-list">
+</div>
+<button class="book-now-modal-button"> Book Now </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="amenities">
+<div class="container">
+<h2 class="section-heading">Hotel Amenities</h2>
+<div class="amenity-grid">
+<div class="amenity-card" style="background-image: url('https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&amp;fit=crop&amp;w=800&amp;q=60'); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+<i class="fa-solid fa-utensils"></i>
+<h3>Gourmet Dining</h3>
+<p>Experience world-class cuisine at our signature restaurant.</p>
+</div>
+<div class="amenity-card" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=800&amp;q=80'); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+<i class="fa-solid fa-wifi"></i>
+<h3>High-Speed Wi-Fi</h3>
+<p>Stay connected with complimentary high-speed internet access.</p>
+</div>
+
+
+
+
+<div class="amenity-card" style="background-image: url('https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&amp;fit=crop&amp;w=800&amp;q=60'); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+<i class="fa-solid fa-square-parking"></i>
+<h3>Valet Parking</h3>
+<p>Convenient and secure parking service available 24/7.</p>
+</div>
+<div class="amenity-card" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=800&amp;q=80'); background-size: cover; background-position: center; color: white; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+<i class="fa-solid fa-coffee-pot"></i>
+<h3>In-Room Coffee</h3>
+<p>Enjoy a fresh cup of coffee from your in-room maker.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="gallery">
+<div class="container">
+<h2 class="section-heading">Gallery</h2>
+<div class="carousel-container">
+<div class="carousel-images">
+<img alt="Hotel Interior" src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<img alt="Hotel Room" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<img alt="Hotel Suite" src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<img alt="Hotel Exterior" src="https://images.unsplash.com/photo-1549921296-3a589e12c6da?auto=format&amp;fit=crop&amp;w=800&amp;q=60"/>
+</div>
+<button class="carousel-button left" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+<button class="carousel-button right" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="testimonials">
+<div class="container">
+<h2 class="section-heading">Guest Testimonials</h2>
+<div class="testimonial-grid">
+<div class="testimonial-card">
+<img alt="John Doe" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"/>
+<p class="quote">"An absolutely fantastic stay! The service was impeccable, and the rooms were breathtaking. I can't wait to come back!"</p>
+<h4 class="author">John Doe</h4>
+<div class="stars">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+</div>
+</div>
+<div class="testimonial-card">
+<img alt="Jane Smith" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"/>
+<p class="quote">"A true gem in the city. The amenities were top-notch, and the dining experience was unforgettable. Highly recommend."</p>
+<h4 class="author">Jane Smith</h4>
+<div class="stars">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+</div>
+</div>
+<div class="testimonial-card">
+<img alt="Sam Wilson" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"/>
+<p class="quote">"From the moment I arrived, the staff made me feel right at home. The rooms were spacious and beautifully designed. Perfect!"</p>
+<h4 class="author">Sam Wilson</h4>
+<div class="stars">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star-half-stroke"></i>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="contact">
+<div class="container">
+<h2 class="section-heading">Contact Us</h2>
+<div class="contact-content-wrapper">
+<div class="contact-form-container">
+<h3>Send us a message</h3>
+<form class="contact-form">
+<div>
+<label for="name">Full Name</label>
+<input id="name" name="name" placeholder="John Doe" type="text"/>
+</div>
+<div>
+<label for="email">Email Address</label>
+<input id="email" name="email" placeholder="johndoe@example.com" type="email"/>
+</div>
+<div>
+<label for="message">Message</label>
+<textarea id="message" name="message" placeholder="Your message here..." rows="6"></textarea>
+</div>
+<button type="submit">Send Message</button>
+<p class="form-message"></p>
+</form>
+</div>
+<div class="contact-info-container">
+<h3>Our Location</h3>
+<div class="contact-info-list">
+<p><i class="fa-solid fa-location-dot"></i> Mtoni kwa Azizi Ally, Metropolis, 10001</p>
+<p><i class="fa-solid fa-phone"></i> +1 (555) 123-4567</p>
+<p><i class="fa-solid fa-envelope"></i> info@kisumadoublemhotel.com</p>
+</div>
+<div class="social-links">
+<h3>Follow Us</h3>
+<div class="icons">
+<a href="#"><i class="fa-brands fa-facebook"></i></a>
+<a href="#"><i class="fa-brands fa-twitter"></i></a>
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+<a href="#"><i class="fa-brands fa-linkedin"></i></a>
+</div>
+</div>
+<div class="map-placeholder">
+<iframe allowfullscreen="" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.220163351913!2d-122.41941598468114!3d37.77492927975936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064a38e8a93%3A0x7d06e23b036d0137!2sSan%20Francisco%20City%20Hall!5e0!3m2!1sen!2sus!4v1678235478051!5m2!1sen!2sus" style="border:0;" width="600"></iframe>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="fade-in-up" id="pickup">
+<div class="container">
+<h2 class="section-heading">Arrange a Pick Up</h2>
+<div class="pickup-content-wrapper">
+<div class="pickup-form-container">
+<h3>Request a Shuttle Service</h3>
+<p>Please fill out the form below to book our complimentary hotel pick-up service.</p>
+<form class="pickup-form">
+<div class="pickup-form-group">
+<div>
+<label for="pickup-name">Full Name</label>
+<input id="pickup-name" name="name" placeholder="John Doe" required="" type="text"/>
+</div>
+<div>
+<label for="pickup-email">Email Address</label>
+<input id="pickup-email" name="email" placeholder="johndoe@example.com" required="" type="email"/>
+</div>
+<div>
+<label for="pickup-date">Date</label>
+<input id="pickup-date" name="date" required="" type="date"/>
+</div>
+<div>
+<label for="pickup-time">Time</label>
+<input id="pickup-time" name="time" required="" type="time"/>
+</div>
+<div>
+<label for="pickup-location">Pick-up Location</label>
+<input id="pickup-location" name="location" placeholder="e.g., Airport Terminal A" required="" type="text"/>
+</div>
+<div>
+<label for="pickup-flight">Flight Number</label>
+<input id="pickup-flight" name="flight" placeholder="e.g., UA123" type="text"/>
+</div>
+<div>
+<label for="pickup-guests">Number of Guests</label>
+<input id="pickup-guests" max="10" min="1" name="guests" required="" type="number" value="1"/>
+</div>
+<button type="submit">Request Pick Up</button>
+</div>
+</form>
+</div>
+<div class="pickup-info-container">
+<h3>Pick Up Information</h3>
+<p>Our dedicated shuttle service is available 24/7 to ensure a seamless arrival and departure for all our guests. We provide pick-up from all major airports and train stations in the city.</p>
+<h4>Service Highlights:</h4>
+<ul>
+<li><i class="fa-solid fa-car"></i> Complimentary shuttle for all hotel guests.</li>
+<li><i class="fa-solid fa-clock"></i> Available 24/7.</li>
+<li><i class="fa-solid fa-route"></i> Service to and from all local airports and train stations.</li>
+<li><i class="fa-solid fa-users"></i> Accommodates up to 10 people per booking.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="main-footer">
+<div class="footer-container">
+<div class="footer-logo-info">
+<h3>KISUMA DOUBLE M HOTEL</h3>
+<p>Experience the pinnacle of luxury and hospitality.</p>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic Header Visibility
+        let lastScrollTop = 0;
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                mainNav.classList.add('header-hidden');
+            } else {
+                mainNav.classList.remove('header-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, false);
+
+        // Desktop Sliding Menu Toggle (now universal)
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const desktopSlidingMenu = document.getElementById('desktop-sliding-menu');
+
+        mobileMenuButton.addEventListener('click', (e) => {
+             e.stopPropagation(); // Prevent this click from being caught by the document listener
+             desktopSlidingMenu.classList.toggle('is-open');
+        });
+
+        // Hide menu when clicking outside of it or the button
+        document.addEventListener('click', (e) => {
+            if (!desktopSlidingMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && desktopSlidingMenu.classList.contains('is-open')) {
+                desktopSlidingMenu.classList.remove('is-open');
+            }
+        });
+
+        // Intersection Observer for Fade-in-Up animation
+        const fadeInElements = document.querySelectorAll('.fade-in-up');
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Unobserve after it becomes visible
+                }
+            });
+        }, observerOptions);
+
+        fadeInElements.forEach(el => observer.observe(el));
+
+
+        // Room Details Modal functionality (in-card pop-ups)
+        document.querySelectorAll('.details-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const roomType = e.target.getAttribute('data-room-type');
+                const modal = document.getElementById(`room-details-modal-${roomType}`);
+                if (modal) {
+                    // Populate modal content from the room card (can be extended with more data)
+                    const roomCard = e.target.closest('.room-card');
+                    const roomName = roomCard.querySelector('h3').textContent;
+                    const roomDescription = roomCard.querySelector('p').textContent;
+                    
+                    modal.querySelector('.room-detail-name').textContent = roomName;
+                    modal.querySelector('.room-detail-description').textContent = roomDescription;
+                    
+                    // You would typically have a data structure for amenities to populate this list
+                    // For this example, we'll just show the modal
+                    
+                    modal.classList.add('is-open');
+                }
+            });
+        });
+
+        document.querySelectorAll('.room-details-modal .close-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const modal = e.target.closest('.room-details-modal');
+                if (modal) {
+                    modal.classList.remove('is-open');
+                }
+            });
+        });
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const carouselImages = document.querySelector('.carousel-images');
+        const images = document.querySelectorAll('.carousel-images img');
+        const totalSlides = images.length;
+
+        function updateCarousel() {
+            const width = images[0].clientWidth;
+            carouselImages.style.transform = `translateX(${-currentSlide * width}px)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        // Update carousel on window resize to maintain responsiveness
+        window.addEventListener('resize', updateCarousel);
+        
+        // Initial call to set up the carousel
+        window.addEventListener('load', updateCarousel);
+    </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // === Sidebar toggle (right slide) ===
+  const dotsBtn = document.getElementById('mobile-menu-button');
+  const sidebar = document.getElementById('desktop-sliding-menu');
+  if (dotsBtn && sidebar) {
+    // Ensure hidden at start
+    sidebar.classList.remove('is-open');
+    dotsBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sidebar.classList.toggle('is-open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!sidebar.contains(e.target) && !dotsBtn.contains(e.target)) {
+        sidebar.classList.remove('is-open');
+      }
+    });
+  }
+
+  // === Booking form template ===
+  function buildBookingHTML(roomTypeText) {
+    return `
+      <div class="booking-form-container">
+        <h3>Book the ${roomTypeText}</h3>
+        <form class="booking-form" onsubmit="event.preventDefault(); alert('Booking submitted!');">
+          <label>Full Name</label>
+          <input type="text" name="name" required placeholder="Your Name">
+          <label>Email</label>
+          <input type="email" name="email" required placeholder="you@example.com">
+          <label>Check-in</label>
+          <input type="date" name="checkin" required>
+          <label>Check-out</label>
+          <input type="date" name="checkout" required>
+          <label>Guests</label>
+          <input type="number" name="guests" min="1" value="1" required>
+          <label>Room Type</label>
+          <select name="roomType">
+            <option value="Standard">Standard</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Executive Suite">Executive Suite</option>
+          </select>
+          <label>Special Requests</label>
+          <textarea name="requests" placeholder="Any requests..."></textarea>
+          <button type="submit">Submit Booking</button>
+          <button type="button" class="back-to-details">Back to Room Details</button>
+        </form>
+      </div>
+    `;
+  }
+
+  function showBookingForm(modal, roomTypeText) {
+    const content = modal.querySelector('.room-detail-content');
+    if (!content) return;
+    if (!content.dataset.original) {
+      content.dataset.original = content.innerHTML;
+    }
+    content.innerHTML = buildBookingHTML(roomTypeText || 'Selected Room');
+    const backBtn = content.querySelector('.back-to-details');
+    backBtn.addEventListener('click', function() {
+      content.innerHTML = content.dataset.original;
+    });
+  }
+
+  function openModal(modal) {
+    if (modal) {
+      modal.style.display = 'block';
+      modal.classList.add('is-open');
+    }
+  }
+
+  // Card Book Now
+  document.querySelectorAll('.book-now-card-button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const type = this.getAttribute('data-room-type');
+      const modal = document.getElementById('room-details-modal-' + type);
+      openModal(modal);
+      let roomTypeText = type ? type.charAt(0).toUpperCase() + type.slice(1) : 'Room';
+      if (type === 'suite') roomTypeText = 'Executive Suite';
+      showBookingForm(modal, roomTypeText);
+    });
+  });
+
+  // Modal Book Now
+  document.querySelectorAll('.book-now-modal-button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const modal = this.closest('.room-details-modal');
+      const titleEl = modal.querySelector('.room-detail-name');
+      const roomTypeText = titleEl && titleEl.textContent.trim() ? titleEl.textContent.trim() : 'Selected Room';
+      showBookingForm(modal, roomTypeText);
+    });
+  });
+
+  // === Robust close: delegate clicks on any .close-button (covers dynamic content too) ===
+  document.addEventListener('click', function(e) {
+    const closeBtn = e.target.closest('.close-button');
+    if (closeBtn) {
+      const modal = closeBtn.closest('.room-details-modal');
+      if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('is-open');
+      }
+    }
+  });
+
+  // Close when clicking outside modal content
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.room-details-modal.is-open').forEach(modal => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('is-open');
+      }
+    });
+  });
+});
+</script><script>
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('mobile-menu-button');
+    var panel = document.getElementById('desktop-sliding-menu');
+    if(!btn || !panel) return;
+    if(btn.dataset.rbBound === "1") return;
+    btn.dataset.rbBound = "1";
+
+    // Ensure closed on load
+    panel.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+
+    function openPanel(){
+      panel.classList.add('is-open');
+      document.body.classList.add('rb-sidebar-open');
+      btn.setAttribute('aria-expanded','true');
+    }
+    function closePanel(){
+      panel.classList.remove('is-open');
+      document.body.classList.remove('rb-sidebar-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(panel.classList.contains('is-open')) closePanel(); else openPanel();
+    });
+
+    document.addEventListener('click', function(e){
+      if(!panel.contains(e.target) && !btn.contains(e.target)) closePanel();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closePanel();
+    });
+  });
+})();
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sidebar = document.getElementById('desktop-sliding-menu');
+  var btn = document.getElementById('mobile-menu-button');
+  if(sidebar && btn) {
+    var links = sidebar.querySelectorAll('.desktop-nav-links a');
+    links.forEach(function(link) {
+      link.addEventListener('click', function() {
+        sidebar.classList.remove('is-open');
+        document.body.classList.remove('rb-sidebar-open');
+        document.body.style.overflow = 'auto';
+        btn.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+});
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('roomModal');
+  const modalContent = modal ? modal.querySelector('.modal-content') : null;
+  const closeModalBtn = modal ? modal.querySelector('.close') : null;
+
+  function openModal(contentHTML) {
+    if (modalContent) {
+      modalContent.innerHTML = contentHTML;
+      modal.style.display = 'block';
+    }
+  }
+
+  // Event delegation for View Details and Book Now buttons
+  document.body.addEventListener('click', function(e) {
+    const target = e.target.closest('.view-details-btn, .book-now-btn');
+    if (target) {
+      e.preventDefault();
+      if (target.classList.contains('view-details-btn')) {
+        // Example: Load room details content
+        openModal('<div>Room details content here</div>');
+      } else if (target.classList.contains('book-now-btn')) {
+        // Example: Load booking form content
+        openModal('<div>Booking form content here</div>');
+      }
+    }
+    if (e.target === closeModalBtn) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Close modal when clicking outside content
+  if (modal) {
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+});
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('roomModal');
+  const modalContent = modal ? modal.querySelector('.modal-content') : null;
+  const closeModalBtn = modal ? modal.querySelector('.close') : null;
+
+  function openRoomDetails() {
+    // Here we keep your original room details HTML or logic
+    if (typeof loadRoomDetailsOriginal === 'function') {
+      loadRoomDetailsOriginal();
+    }
+  }
+
+  function openBookingForm() {
+    // Here we keep your original booking form HTML or logic
+    if (typeof loadBookingFormOriginal === 'function') {
+      loadBookingFormOriginal();
+    }
+  }
+
+  // Event delegation for any current or future matching elements
+  document.body.addEventListener('click', function(e) {
+    if (e.target.classList.contains('view-details-btn')) {
+      e.preventDefault();
+      if (typeof handleViewDetailsClick === 'function') {
+        handleViewDetailsClick(e);
+      } else {
+        openRoomDetails();
+        if (modal) modal.style.display = 'block';
+      }
+    }
+    if (e.target.classList.contains('book-now-btn')) {
+      e.preventDefault();
+      if (typeof handleBookNowClick === 'function') {
+        handleBookNowClick(e);
+      } else {
+        openBookingForm();
+      }
+    }
+    if (e.target.classList.contains('back-to-details-btn')) {
+      e.preventDefault();
+      openRoomDetails();
+    }
+    if (closeModalBtn && e.target === closeModalBtn) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Keep outside-click close
+  if (modal) {
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+});
+</script>
+<div id="chatbot-launcher"><img src="images/utel icon.jpeg" alt="utel icon" class="welcome-logo" /></div>
+
+<!-- Chatbot Widget -->
+<div id="chatbot-root" class="hidden"></div>
+
+<script src="chatbot.js"></script>
+</body>
+</html>

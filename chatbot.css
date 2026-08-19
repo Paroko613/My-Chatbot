@@ -1,0 +1,357 @@
+/* =====================================================
+   CHAT BODY (MESSAGE CONTAINER)
+===================================================== */
+#chatBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    
+}
+
+/* =====================================================
+   MAIN CHATBOT CONTAINER
+===================================================== */
+.chatbot-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+
+    width: 420px;
+    height: 640px;
+    max-height: 90vh;
+
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.chatbot-header {
+    background: linear-gradient(135deg, #3a5bff, #4f6bff);
+    color: #ffffff;
+    padding: 14px 18px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header h1 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.chatbot-header button {
+    background: rgba(255,255,255,0.18);
+    border: none;
+    color: white;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.chatbot-header button:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* =====================================================
+   CHAT BODY (SCROLLABLE AREA)
+===================================================== */
+.chatbot-body {
+    flex: 1;
+    padding: 18px;
+
+    background: #f6f7fb;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    overflow-y: auto;
+     /* Hide scrollbar but keep scrolling */
+     scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;      /* IE / Edge (legacy) */
+}
+
+/* Chrome, Safari, Opera */
+.chatbot-body::-webkit-scrollbar {
+    display: none;
+}
+
+/* =====================================================
+   USER MESSAGE BUBBLE
+===================================================== */
+.user-message {
+    align-self: flex-end;
+
+    background: #4466ff;
+    color: #ffffff;
+
+    padding: 10px 14px;
+    border-radius: 16px 16px 0 16px;
+
+    max-width: 70%;
+    font-size: 14px;
+
+    word-wrap: break-word;
+}
+
+/* =====================================================
+   BOT MESSAGE BUBBLE
+===================================================== */
+.bot-message {
+    align-self: flex-start;
+
+    background: #f1f1f1;
+    color: #333333;
+
+    padding: 10px 14px;
+    border-radius: 16px 16px 16px 0;
+
+    max-width: 70%;
+    font-size: 14px;
+
+    word-wrap: break-word;
+}
+
+/* Message entry animation */
+@keyframes messageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-message,
+.bot-message {
+    animation: messageFadeIn 0.5s ease-out;
+}
+
+
+/* =====================================================
+   TYPING INDICATOR
+===================================================== */
+.typing-indicator {
+    align-self: flex-start;
+
+    background: #f1f1f1;
+    color: #666666;
+
+    padding: 8px 12px;
+    border-radius: 16px;
+
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* =====================================================
+   FOOTER (INPUT AREA)
+===================================================== */
+.chatbot-footer {
+    display: flex;
+    gap: 10px;
+
+    padding: 12px 16px;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* TEXT INPUT (MULTI-LINE, AUTO-WRAP) */
+.chatbot-footer textarea {
+    flex: 1;
+
+    resize: none;
+    min-height: 42px;
+    max-height: 120px;
+
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    outline: none;
+    overflow-y: hidden;
+}
+
+.chatbot-footer textarea:focus {
+    border-color: #4466ff;
+}
+
+/* SEND BUTTON */
+.chatbot-footer button {
+    background: none;
+    border: none;
+
+    font-size: 20px;
+    color: #4466ff;
+
+    cursor: pointer;
+}
+
+/* =====================================================
+   OWNERSHIP / BRAND FOOTER
+===================================================== */
+.chatbot-ownership {
+    text-align: center;
+    font-size: 12px;
+    color: #999999;
+
+    padding: 6px 0;
+    border-top: 1px solid #eeeeee;
+    background: #fafafa;
+}
+
+/* =====================================================
+   WELCOME PANEL
+===================================================== */
+.welcome-panel {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;      /* horizontal center */
+    justify-content: flex-start; /* stay at top */
+
+    text-align: center;
+    padding: 24px 20px 0;
+}
+
+.welcome-logo {
+    width: 70px;
+    margin-bottom: 10px;
+}
+
+.welcome-panel h3 {
+    margin: 6px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.welcome-panel p {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.4;
+}
+
+/* =====================================================
+   CHATBOT LAUNCHER BUTTON
+===================================================== */
+#chatbot-launcher {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    width: 55px;
+    height: 55px;
+
+    font-size: 24px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+
+    z-index: 9999;
+}
+
+/* =====================================================
+   UTILITY
+===================================================== */
+.hidden {
+    display: none;
+}
+
+/* Typing dots animation */
+.typing-dots::after {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    animation: dots 1.8s infinite steps(3, end);
+}
+
+@keyframes dots {
+    0%   { content: ""; }
+    33%  { content: "."; }
+    66%  { content: ".."; }
+    100% { content: "..."; }
+}
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+.error-message {
+    background: #ffe6e6;
+    color: #b00020;
+    border-left: 4px solid #b00020;
+}
+
+/* =====================================================
+   MOBILE RESPONSIVENESS (Update)
+   ===================================================== */
+@media screen and (max-width: 480px) {
+    .chatbot-container {
+        /* 1. Occupy full screen */
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        
+        /* 2. Remove rounding for a "Full-App" look */
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    /* 3. Make bubbles slightly wider on small screens */
+    .user-message, 
+    .bot-message {
+        max-width: 85%; 
+        font-size: 15px; /* Slightly larger text for mobile readability */
+    }
+
+    /* 4. Increase tap targets for fingers */
+    .chatbot-footer {
+        padding: 15px;
+    }
+
+    .chatbot-footer textarea {
+        font-size: 16px; /* Prevents iOS from auto-zooming on input */
+    }
+
+    /* 5. Adjust Header for mobile */
+    .chatbot-header {
+        padding: 18px;
+    }
+
+    /* 6. Ensure the Launcher is easy to tap */
+    #chatbot-launcher {
+        bottom: 15px;
+        right: 15px;
+        width: 60px;
+        height: 60px;
+    }
+}

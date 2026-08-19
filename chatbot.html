@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utel Assistant</title>
+    <link rel="stylesheet" href="chatbot.css">
+    
+    
+</head>
+
+<body>
+     <div class="chatbot-container">
+        <header class="chatbot-header">
+            <h1>Utel assistant</h1>
+            <div class="header-controls">
+                <button id="refreshBot"><i class="fa-solid fa-rotate"></i></button>
+                <button id="closeBot"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </header>
+
+        <main class="chatbot-body" id="chatBody">
+            <div class="welcome-panel" id="welcomePanel">
+        <img src="images/utel icon.jpeg" alt="utel icon" class="welcome-logo" />
+
+        <h3>Utel Assistant</h3>
+
+        <p>
+           Welcome Utel Global. How can we help you today?
+        </p>
+
+    </div>
+            </main>
+
+        <footer class="chatbot-footer">
+            <div class="input-wrapper">
+                <textarea id="userInput" placeholder="Ask about Utel Global..." rows="1"></textarea>
+            </div>
+            
+
+            <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+
+
+        </footer>
+
+        <div class="chatbot-ownership">
+        Utel Global
+    </div>
+
+    </div>
+ 
+    <script src="chatbot.js"></script>
+</body>
+</html>
